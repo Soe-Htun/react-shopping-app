@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores';
 import { changeQuantity } from 'stores/cart';
 
 const CartItem = (props: any) => {
     const { productId, quantity } = props.data;
-    // const [ detail, setDetail ] = useState([]);
-
-    // useEffect(() => {
       const products = useSelector((state: RootState) => state.products.items);
       const product = products.find((p) => p.id === Number(productId)); 
 
       const dispatch = useDispatch()
       
-      if (!product) return <div>Product Not found</div>;
+      if (!product) return <div>Cart Not found</div>;
 
       const handleMinusQuantity = () => {
         dispatch(changeQuantity({
@@ -27,8 +23,6 @@ const CartItem = (props: any) => {
           quantity: quantity + 1
         }))
       }
-
-    // })
   return (
     <div className='flex justify-between items-center bg-slate-600 text-white p-2 border-b-2 border-slate-700 gap-5'>
       <img src={product.image} alt="" className='w-12' />
