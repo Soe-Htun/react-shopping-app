@@ -5,13 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../stores/index'
 import { addToCart } from '../stores/cart'
 
-
 const ProductCart = (props: any) => {
     const carts = useSelector((store: RootState) => store.cart.items);
-    console.log('Cart', carts);
-    
-    const { id, name, price, image, slug } = props.data;
-
+    const { id, title, price, image } = props.data;
     const dispatch =  useDispatch();
     const handleAdToCart = () => {
         dispatch(addToCart({
@@ -21,10 +17,10 @@ const ProductCart = (props: any) => {
     }
   return (
     <div className='bg-white p-5 rounded-xl shadow-sm'>
-        <Link to={slug}>
-            <img src={image} alt="" className='w-full h-80 object-cover object-top drop-shado-[0_80px_30px_#0007]' />
+        <Link to={`/product/${id}`}>
+            <img src={image} alt="" className='w-full h-80 object-contain object-top drop-shado-[0_80px_30px_#0007]' />
         </Link>
-        <h3 className='text-2xl py-3 text-center font-medium'>{name}</h3>
+        <h3 className='text-2xl py-3 text-center font-medium truncate'>{title}</h3>
         <div className='flex justify-between items-center'>
             <p>
                 $ <span className='text-2xl font-medium'>{price}</span>

@@ -1,12 +1,23 @@
 import React, { useEffect } from 'react';
 import { useProductsService } from '../services/products.service';
 import ProductCart from 'components/productCart';
+import { useDispatch } from 'react-redux';
+import { setProducts } from 'stores/products';
+import { ProductData } from '../types/products';
+
+
 const Home = () => {
   const { products, loading, error, getAllProducts } = useProductsService();
-
+  const dispatch = useDispatch()
   useEffect(() => {
     getAllProducts();
   }, []);
+
+  useEffect(() => {
+    if(products?.length > 0) {
+      dispatch(setProducts(products!)) 
+    }
+  }, [products, dispatch])
 
   if (loading) return <div className="h-screen flex items-center justify-center">Loading...</div>;
   if (error) return <div className="text-red-500 text-center py-8">Error: {error}</div>;

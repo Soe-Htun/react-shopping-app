@@ -1,31 +1,19 @@
 // src/services/products.service.ts
 import { useCallback, useState } from 'react';
 import { useHttp } from './http.service';
-
-export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating?: {
-    rate: number;
-    count: number;
-  };
-}
+import { ProductData } from '../types/products';
 
 export function useProductsService() {
   const http = useHttp();
 
-  const [products, setProducts] = useState<Product[] | null>(null);
+  const [products, setProducts] = useState<ProductData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
   const getAllProducts = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await http.get<Product[]>('https://fakestoreapi.com/products');
+      const data = await http.get<ProductData[]>('https://fakestoreapi.com/products');
       setProducts(data);
       console.log('Data', data);
     } catch (err) {
