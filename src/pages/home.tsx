@@ -3,8 +3,6 @@ import { useProductsService } from '../services/products.service';
 import ProductCart from 'components/productCart';
 import { useDispatch } from 'react-redux';
 import { setProducts } from 'stores/products';
-import { ProductData } from '../types/products';
-
 
 const Home = () => {
   const { products, loading, error, getAllProducts } = useProductsService();
